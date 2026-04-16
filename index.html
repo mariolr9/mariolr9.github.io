@@ -404,7 +404,8 @@
 <div class="tabs">
   <button class="tab active" onclick="showSection(0)">Cuestionario 01</button>
   <button class="tab" onclick="showSection(1)">Cuestionario 02</button>
-  <button class="tab" onclick="showSection(2)">Todos</button>
+  <button class="tab" onclick="showSection(2)">Cuestionario 03</button>
+  <button class="tab" onclick="showSection(3)">Todos</button>
 </div>
 
 <!-- Reset -->
@@ -424,10 +425,16 @@
   <div class="quiz-wrap" id="wrap-1"></div>
 </div>
 
-<!-- All -->
+<!-- Q03 -->
 <div class="quiz-section" id="section-2">
-  <div class="section-label"><h2>Todos los cuestionarios</h2><span class="badge">20 preguntas</span></div>
+  <div class="section-label"><h2>Cuestionario 03</h2><span class="badge">10 preguntas</span></div>
   <div class="quiz-wrap" id="wrap-2"></div>
+</div>
+
+<!-- All -->
+<div class="quiz-section" id="section-3">
+  <div class="section-label"><h2>Todos los cuestionarios</h2><span class="badge">30 preguntas</span></div>
+  <div class="quiz-wrap" id="wrap-3"></div>
 </div>
 
 <script>
@@ -697,6 +704,193 @@ public class TestClass {
   }
 ];
 
+const Q3 = [
+  {
+    q: '¿Qué error hay, si es que hay alguno, en el siguiente código?',
+    code: `class TestClass implements T1, T2{
+    public void m1(){}
+}
+interface T1{
+    int VALUE = 1;
+    void m1();
+}
+interface T2{
+    int VALUE = 2;
+    void m1();
+}`,
+    opts: [
+      'El código funcionará bien si VALUE se elimina de una de las interfaces.',
+      'TestClass no puede implementar ambas interfaces.',
+      'No hay nada erróneo en el código.',
+      'El código funcionará bien si m1() se elimina de una de las interfaces.'
+    ],
+    correct: 2
+  },
+  {
+    q: '¿Cuál será el resultado de ejecutar la clase Truck?',
+    code: `class Automobile{
+    public void drive() { System.out.println("Automobile: drive"); }
+}
+public class Truck extends Automobile{
+    public void drive() { System.out.println("Truck: drive"); }
+    public static void main (String args []){
+        Automobile a = new Automobile();
+        Truck t = new Truck();
+        a.drive(); //1
+        t.drive(); //2
+        a = t;     //3
+        a.drive(); //4
+    }
+}`,
+    opts: [
+      'Automobile: drive\nAutomobile: drive\nAutomobile: drive',
+      'Error de compilación en la línea 3.',
+      'Automobile: drive\nTruck: drive\nAutomobile: drive',
+      'Automobile: drive\nTruck: drive\nTruck: drive'
+    ],
+    correct: 3
+  },
+  {
+    q: 'Atendiendo al siguiente código, ¿qué habría que añadir en la línea // Line 1 para que el método print de SubClass llame al método print de BaseClass?',
+    code: `class BaseClass{
+    public void print(String s) { System.out.println("BaseClass :"+s); }
+}
+class SubClass extends BaseClass{
+    public void print(String s){
+        System.out.println("SubClass :"+s);
+        // Line 1
+    }
+    public static void main(String args[]){
+        SubClass sc = new SubClass();
+        sc.print("location");
+    }
+}`,
+    opts: [
+      'super.print(s);',
+      'BaseClass.print(s);',
+      'print(s);',
+      'this.print(s);'
+    ],
+    correct: 0
+  },
+  {
+    q: 'Atendiendo a la siguiente definición de clases:\n\nclass A {}\nclass B extends A {}\nclass C extends B {}\n\n¿Cuál de las siguientes expresiones booleanas identifica de forma correcta cuando un objeto \'o\' referencia a un objeto de la clase B pero no de la C?',
+    opts: [
+      '(o instanceof B) && (!(o instanceof A))',
+      '!((o instanceof A) || (o instanceof B))',
+      '(o instanceof B) && !((o instanceof A) || (o instanceof C))',
+      '(o instanceof B) && (!(o instanceof C))'
+    ],
+    correct: 3
+  },
+  {
+    q: '¿Cuál será la salida del siguiente código una vez se compile y se ejecute?',
+    code: `class Base{
+    void methodA(){
+        System.out.println("base - MethodA");
+    }
+}
+class Sub extends Base{
+    public void methodA(){
+        System.out.println("sub - MethodA");
+    }
+    public void methodB(){
+        System.out.println("sub - MethodB");
+    }
+    public static void main(String args[]){
+        Base b=new Sub(); //1
+        b.methodA(); //2
+        b.methodB(); //3
+    }
+}`,
+    opts: [
+      'Error de compilación en la línea 1',
+      'sub - MethodA and sub - MethodB',
+      'Error de compilación en la línea 3',
+      'base - MethodA and sub - MethodB'
+    ],
+    correct: 2
+  },
+  {
+    q: 'Una interfaz puede heredar de:',
+    opts: [
+      'Nada. Las interfaces no pueden heredar.',
+      'Una o más interfaces.',
+      'Una cadena.',
+      'Una clase.'
+    ],
+    correct: 1
+  },
+  {
+    q: 'Considera la siguiente estructura de clases: A es la superclase; B1 y B2 extienden A; C1 y C2 extienden B1. El método public void m1(){...} está definido en todas las clases excepto en B1 y C1.\n\n¿Cuál de las siguientes afirmaciones es correcta?',
+    opts: [
+      'objectOfC1.m1(); causará un error de compilación.',
+      'objectOfC2.m1(); llamará al método m1() de la clase A',
+      'objectOfC1.m1(); llamará al método m1() de la clase A',
+      'objectOfB2.m1(); provocará una excepción'
+    ],
+    correct: 2
+  },
+  {
+    q: '¿Cuál es el resultado de compilar y ejecutar el siguiente código?',
+    code: `public class TestClass{
+    static int si = 10;
+    public static void main (String args[]){
+        new TestClass();
+    }
+    public TestClass(){
+        System.out.println(this);
+    }
+    public String toString(){
+        return "TestClass.si = "+this.si;
+    }
+}`,
+    opts: [
+      'No compila porque al ser si estático, la sentencia this.si no es válida.',
+      'Imprimirá TestClass@nnnnnnnn, donde nnnnnnnn es la "dirección de memoria" del objeto referenciado por this.',
+      'Ninguna opción es correcta.',
+      'Imprimirá TestClass.si = 10'
+    ],
+    correct: 3
+  },
+  {
+    q: '¿Cuál es el resultado de compilar y ejecutar el siguiente código?',
+    code: `interface Flyer{ }
+class Bird implements Flyer { }
+class Eagle extends Bird { }
+class Bat { }
+
+public class TestClass {
+    public static void main(String[] args) {
+        Flyer f = new Eagle();
+        Eagle e = new Eagle();
+        Bat b = new Bat();
+
+        if(f instanceof Bird) System.out.println("f is a Bird");
+        if(e instanceof Flyer) System.out.println("e is a Flyer");
+        if(b instanceof Flyer) System.out.println("b is a Flyer");
+    }
+}`,
+    opts: [
+      'No compila',
+      'e is a Flyer',
+      'Lanza una excepción en tiempo de ejecución.',
+      'f is a Bird\ne is a Flyer'
+    ],
+    correct: 3
+  },
+  {
+    q: 'Estamos modelando una jerarquía de clases de cosas vivas. Tienes la clase CosaViva que tiene un método abstracto reproducir(). Ahora, quieres tener dos subclases de CosaViva: Planta y Animal. Ambos se reproducen pero con diferentes mecanismos. ¿Qué harías?',
+    opts: [
+      'Sobrecargar el método reproducir() en la clase CosaViva.',
+      'Sobreescribir el método reproducir() en las clases Planta y Animal.',
+      'Se puede sobrecargar o sobreescribir el método reproducir() en las clases Animal y Planta, depende de las preferencias del diseñador.',
+      'Sobrecargar el método reproducir() en las clases Planta y Animal.'
+    ],
+    correct: 1
+  }
+];
+
 // ─── STATE ──────────────────────────────────────────────────────────────────
 let answered = new Set();
 let correct  = 0;
@@ -814,34 +1008,35 @@ function showSection(idx) {
 // ─── INIT ───────────────────────────────────────────────────────────────────
 const q1Prepped = Q1.map(prepQuestion);
 const q2Prepped = Q2.map(prepQuestion);
+const q3Prepped = Q3.map(prepQuestion);
 
 // Shuffle order of questions within each set
 const q1Shuffled = shuffle(q1Prepped);
 const q2Shuffled = shuffle(q2Prepped);
-const allShuffled = shuffle([...q1Prepped, ...q2Prepped]);
+const q3Shuffled = shuffle(q3Prepped);
 
 // We need a single global index
 const allPrepped = [];
-const sectionMap = { 0: [], 1: [], 2: [] };
+const sectionMap = { 0: [], 1: [], 2: [], 3: [] };
 
 // Build global list maintaining per-section grouping
-q1Shuffled.forEach(q  => { const idx = allPrepped.length; allPrepped.push(q); sectionMap[0].push(idx); sectionMap[2].push(idx); });
-q2Shuffled.forEach(q  => { const idx = allPrepped.length; allPrepped.push(q); sectionMap[1].push(idx); sectionMap[2].push(idx); });
+q1Shuffled.forEach(q  => { const idx = allPrepped.length; allPrepped.push(q); sectionMap[0].push(idx); });
+q2Shuffled.forEach(q  => { const idx = allPrepped.length; allPrepped.push(q); sectionMap[1].push(idx); });
+q3Shuffled.forEach(q  => { const idx = allPrepped.length; allPrepped.push(q); sectionMap[2].push(idx); });
 
-// Override section 2 with mixed shuffle
-// Re-map: section 2 will show same cards but in mixed order
-sectionMap[2] = shuffle([...sectionMap[0], ...sectionMap[1]]);
+// Section 3 (Todos) = all questions shuffled together
+sectionMap[3] = shuffle([...sectionMap[0], ...sectionMap[1], ...sectionMap[2]]);
 
 document.getElementById('prog-total').textContent = allPrepped.length + ' preguntas';
 document.getElementById('score-remain').textContent = allPrepped.length;
 
-[0,1,2].forEach(sec => {
+[0,1,2,3].forEach(sec => {
   const wrap = document.getElementById(`wrap-${sec}`);
   sectionMap[sec].forEach((globalIdx, display) => {
     const q = allPrepped[globalIdx];
     const card = buildCard(q, globalIdx);
-    // Override display number for section 2 (just cosmetic)
-    if (sec === 2) {
+    // Override display number for section 3 (Todos)
+    if (sec === 3) {
       card.querySelector('.q-num').textContent = `Q${String(display+1).padStart(2,'0')}`;
     }
     wrap.appendChild(card);
