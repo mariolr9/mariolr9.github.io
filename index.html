@@ -184,7 +184,6 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 16px;
-    overflow: hidden;
     transition: border-color .2s;
   }
   .q-card.answered { border-color: var(--border); }
@@ -195,6 +194,8 @@
     gap: 16px;
     padding: 22px 24px 18px;
     border-bottom: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
   }
   .q-num {
     background: var(--accent);
@@ -213,6 +214,8 @@
     font-weight: 600;
     line-height: 1.5;
     color: var(--text);
+    min-width: 0;
+    width: 100%;
   }
 
   /* Code block inside question */
@@ -226,8 +229,13 @@
     padding: 14px 16px;
     margin-top: 12px;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: visible;
     white-space: pre;
     color: #c9d1d9;
+    display: block;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* Options */
@@ -371,7 +379,16 @@
   @media (max-width: 600px) {
     header { padding: 32px 20px 24px; }
     .scorebar, .tabs, .section-label, .quiz-wrap, .progress-wrap, .reset-wrap { padding: 0 16px; }
-    .q-header { flex-direction: column; gap: 8px; }
+    .q-header { flex-direction: column; gap: 8px; padding: 16px 16px 14px; }
+    .options { padding: 12px 16px 16px; }
+    .feedback { margin: 0 16px 16px; }
+    .code-block {
+      font-size: 11px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .tabs { gap: 6px; }
+    .tab { font-size: 12px; padding: 10px 8px; }
   }
 </style>
 </head>
